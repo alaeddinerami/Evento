@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +17,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/dashboard/categories', [CategoryController::class, 'store'])->name('category.store');
+    Route::patch('/dashboard/categories/edit/{category}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::middleware(['auth', 'role:client'])->group( function(){
+    
+    Route::get('/client/index', [ClientController::class, 'index'])->name('client.index');
+
+});
+
+Route::middleware(['auth', 'role:organiser'])->group( function(){
+
+    Route::get('/organisateur/index', [OrganisateurController::class, 'index'])->name('organisateur.index');
+    
+});
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
