@@ -13,7 +13,8 @@ class OrganisateurController extends Controller
     public function index()
     {
         //
-        return view("organisateur.index");
+        $organisers = Organisateur::all();
+        return view("dashboard.users.index",compact('organisers'));
     }
 
     /**
@@ -22,6 +23,22 @@ class OrganisateurController extends Controller
     public function create()
     {
         //
+    }
+
+    public function ban(Organisateur $organisateur)
+    {
+        if (!$organisateur->isBanned) {
+            $organisateur->update([
+                'isBanned' => 1,
+            ]);
+            return redirect()->back()->with('success', 'user Banned!');
+        } else {
+            $organisateur->update([
+                'isBanned' => 0,
+            ]);
+            return redirect()->back()->with('success', 'user Unbanned!');
+        }
+        
     }
 
     /**

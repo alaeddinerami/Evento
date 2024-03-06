@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Client;
+use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,7 +16,8 @@ class AdminController extends Controller
     {
         //
         $clients = Client::all();
-        return view('dashboard.users.index', compact('clients'));
+        $organisateurs = Organisateur::all();
+        return view('dashboard.users.index', compact('clients','organisateurs'));
     }
 
     /**

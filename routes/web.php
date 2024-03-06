@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Organisateur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/dashboard/user', [AdminController::class, 'index'])->name('user.index');
     Route::patch('/dashboard/client/ban/{client}', [ClientController::class, 'ban'])->name('client.ban');
+    Route::patch('/dashboard/organisateur/ban/{organisateur}', [OrganisateurController::class, 'ban'])->name('organisateur.ban');
 });
 
 Route::get('/', function () {
