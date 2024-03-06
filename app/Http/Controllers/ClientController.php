@@ -23,6 +23,21 @@ class ClientController extends Controller
     {
         //
     }
+    public function ban(Client $client)
+    {
+        if (!$client->isBanned) {
+            $client->update([
+                'isBanned' => 1,
+            ]);
+            return redirect()->back()->with('success', 'user Banned!');
+        } else {
+            $client->update([
+                'isBanned' => 0,
+            ]);
+            return redirect()->back()->with('success', 'user Unbanned!');
+        }
+        
+    }
 
     /**
      * Store a newly created resource in storage.

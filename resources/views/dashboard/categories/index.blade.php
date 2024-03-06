@@ -23,7 +23,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-lg font-semibold text-gray-900">
-                        Add New Genre
+                        Add New category
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -70,7 +70,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-lg font-semibold text-gray-900">
-                        Edit Genre
+                        Edit Category
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -84,7 +84,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" method="post" action="" id="edit_form" enctype="multipart/form-data"
+                <form class="p-4 md:p-5" method="post" action="" id="edit_form" 
                     onsubmit="return validateForm()">
                     @csrf
                     @method('patch')
@@ -176,7 +176,7 @@
                         </td>
                         <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
 
-                            <button href="#" class="text-teal-500 hover:text-teal-700" onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')">
+                            <button  class="text-teal-500 hover:text-teal-700" onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')">
                                 Edit
                             </button>
                             <form action="{{route('category.delete', $category->id )}}" method="POST" class="inline-block">

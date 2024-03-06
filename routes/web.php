@@ -26,6 +26,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
 
     Route::get('/dashboard/user', [AdminController::class, 'index'])->name('user.index');
+    Route::patch('/dashboard/client/ban/{client}', [ClientController::class, 'ban'])->name('client.ban');
 });
 
 Route::get('/', function () {
