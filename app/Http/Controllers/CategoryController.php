@@ -13,7 +13,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return view("dashboard.categories.index");
+        $categories = Category::all();
+        return view("dashboard.categories.index", compact('categories'));
     }
 
     /**
@@ -69,7 +70,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validationData = $request->validate([
+            'name'=> 'required'
+        ]);
+
+        $category->update($validationData);
+
+        return redirect()->back()->with([
+            'message' => 'category updated successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
     }
 
     /**
@@ -78,5 +88,11 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        $category->Delete();
+     
+        return redirect()->back()->with([
+            'message' => 'category deleted successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
     }
 }

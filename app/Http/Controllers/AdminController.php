@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,6 +14,8 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $clients = Client::all();
+        return view('dashboard.users.index', compact('clients'));
     }
 
     /**

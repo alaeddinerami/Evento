@@ -130,16 +130,16 @@
                     <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
                 </li>
                 <li class="inline-flex items-center">
-                    <a href="" class="hover:text-blue-500">Genres</a>
+                    <a href="" class="hover:text-blue-500">Categories</a>
                 </li>
             </ul>
         </div>
         <div class="w-full flex justify-between items-center px-2 mt-4">
-            <p class="text-none text-xl font-semibold indent-4">Genres</p>
+            <p class="text-none text-xl font-semibold indent-4">Category</p>
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                 class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 type="button">
-                Add Genres
+                Add Category
             </button>
         </div>
         <div class="shadow-lg border-t-2 rounded-lg w-full p-2 mt-8">
@@ -153,33 +153,33 @@
                             ID</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Genre</th>
+                            Categories</th>
                         <th data-priority="1"
-                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action</th>
 
                     </tr>
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {{-- @foreach ($genres as $genre) --}}
+                    @foreach ($categories as $category)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{-- {{ $genre->id }} --}}
+                                {{ $category->id }}
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{-- {{ $genre->name }} --}}
+                                {{ $category->name }}
                             </div>
                         </td>
                         <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
 
-                            <button href="#" class="text-teal-500 hover:text-teal-700" onclick="openEditModal()">
+                            <button href="#" class="text-teal-500 hover:text-teal-700" onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')">
                                 Edit
                             </button>
-                            <form action="" method="POST" class="inline-block">
+                            <form action="{{route('category.delete', $category->id )}}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-700 ml-4">Delete</button>
@@ -187,7 +187,7 @@
                         </td>
 
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
