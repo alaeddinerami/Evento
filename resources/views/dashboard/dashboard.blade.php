@@ -60,7 +60,7 @@
                 </svg>
             </div>
             <div class="text-right">
-                <p class="text-2xl">$11,257</p>
+                <p class="text-2xl">{{$eventsTotal}}</p>
                 <p>Events</p>
             </div>
         </div>

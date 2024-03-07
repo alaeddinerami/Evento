@@ -23,14 +23,7 @@
             </ul>
         </div>
         
-        <div class="w-full flex justify-between items-center px-2 mt-4">
-            <p class="text-none text-xl font-semibold indent-4">Event</p>
-            <a href="{{route('event.create')}}" 
-                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                type="button">
-                Create Event
-            </a>
-        </div>
+        
         <div class="shadow-lg border-t-2 rounded-lg w-full p-2 mt-8">
             {{-- table copy it from actors --}}
             <table id="table" class="min-w-full divide-y divide-gray-200 stripe hover"
@@ -68,11 +61,11 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $event->typeValidation}}
+                                {{ $event->isValidByAdmin}}
                             </div>
                         </td>
                        
-                        <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
+                        <td class="p-1 flex flex-wrap whitespace-nowrap text-center text-sm font-medium">
 
                             <a href="{{route('event.edit',$event->id)}}" class="text-blue-500 px-4 hover:text-blue-700">
                                 Visit
@@ -84,9 +77,9 @@
                                     Accept
                                 </button>
                             </form>
-                            <form action="{{route('event.destroy',$event->id)}}" method="POST" class="inline-block">
+                            <form action="{{route('admin.rejectEvent',$event->id)}}" method="POST" class="inline-block">
                                 @csrf
-                                @method('DELETE')
+                                @method('put')
                                 <button type="submit" class="text-red-500 hover:text-red-700 ml-4">Reject</button>
                             </form>
                         </td>

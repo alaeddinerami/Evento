@@ -34,6 +34,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     
     Route::get('/dashboard', [AdminController::class, 'statistics'])->name('user.statistics');
     Route::put('/dashboarde/validateEvent/{event}', [AdminController::class, 'validateEvent'])->name('admin.validateEvent');
+    Route::put('/dashboarde/rejectEvent/{event}', [AdminController::class, 'rejectEvent'])->name('admin.rejectEvent');
 });
 
 Route::get('/', function () {

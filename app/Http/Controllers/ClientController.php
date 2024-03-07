@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -13,7 +14,8 @@ class ClientController extends Controller
     public function index()
     {
         //
-        return view("client.index");
+        $events = Event::where('isValidByAdmin', 'accepted')->paginate(3);
+        return view("client.index",compact('events'));
     }
 
     /**

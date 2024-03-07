@@ -29,7 +29,8 @@ class AdminController extends Controller
         $clientsTotal = Client::all()->count();
         $organisateursTotal = Organisateur::all()->count();
         $categoriesTotal = Category::all()->count();
-        return view('dashboard.dashboard', compact('clientsTotal','organisateursTotal','categoriesTotal'));
+        $eventsTotal = Event::all()->count();
+        return view('dashboard.dashboard', compact('clientsTotal','organisateursTotal','categoriesTotal','eventsTotal'));
     }
     public function create()
     {
@@ -82,6 +83,14 @@ class AdminController extends Controller
     {
         
         $event->isValidByAdmin = 'accepted';
+        $event->update();
+        // dd($event->isValidByAdmin);
+        return redirect()->back()->with('success', 'Event accepted!');
+    }
+    public function rejectEvent(Event $event)
+    {
+        
+        $event->isValidByAdmin = 'rejected';
         $event->update();
         // dd($event->isValidByAdmin);
         return redirect()->back()->with('success', 'Event accepted!');

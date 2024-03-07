@@ -48,7 +48,7 @@
                             validated by admin</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            DAte</th>
+                            Validation</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action</th>
@@ -76,7 +76,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $event->date}}
+                                {{ $event->isValidByAdmin}}
                             </div>
                         </td>
                         <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
