@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,8 @@ class OrganisateurController extends Controller
     public function index()
     {
         //
-        $organisers = Organisateur::all();
-        return view("dashboard.users.index",compact('organisers'));
+       
+        return view("organisateur.index");
     }
 
     /**

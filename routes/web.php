@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Organisateur;
@@ -27,8 +28,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
 
     Route::get('/dashboard/user', [AdminController::class, 'index'])->name('user.index');
+    Route::get('/dashboard/user/event', [AdminController::class, 'show'])->name('admin.show');
     Route::patch('/dashboard/client/ban/{client}', [ClientController::class, 'ban'])->name('client.ban');
     Route::patch('/dashboard/organisateur/ban/{organisateur}', [OrganisateurController::class, 'ban'])->name('organisateur.ban');
+    
+    Route::get('/dashboard', [AdminController::class, 'statistics'])->name('user.statistics');
+    Route::put('/dashboarde/validateEvent/{event}', [AdminController::class, 'validateEvent'])->name('admin.validateEvent');
 });
 
 Route::get('/', function () {
@@ -46,11 +51,13 @@ Route::middleware(['auth', 'role:organiser'])->group( function(){
 
     Route::get('/organisateur/index', [OrganisateurController::class, 'index'])->name('organisateur.index');
     
+    Route::resource('/organisateur/event',EventController::class);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
                 'userID' => $user->id
             ]);
         } else {
-            $user->organizers()->create([
+            $user->organisateurs()->create([
                 'userID' => $user->id
             ]);
         }

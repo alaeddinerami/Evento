@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Category;
 use App\Models\Client;
+use App\Models\Event;
 use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
@@ -23,6 +25,12 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function statistics(){
+        $clientsTotal = Client::all()->count();
+        $organisateursTotal = Organisateur::all()->count();
+        $categoriesTotal = Category::all()->count();
+        return view('dashboard.dashboard', compact('clientsTotal','organisateursTotal','categoriesTotal'));
+    }
     public function create()
     {
         //
@@ -42,6 +50,8 @@ class AdminController extends Controller
     public function show(Admin $admin)
     {
         //
+        $events = Event::all();
+        return view('dashboard.event.index',compact('events'));
     }
 
     /**
@@ -66,5 +76,14 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    public function validateEvent(Event $event)
+    {
+        
+        $event->isValidByAdmin = 'accepted';
+        $event->update();
+        // dd($event->isValidByAdmin);
+        return redirect()->back()->with('success', 'Event accepted!');
     }
 }

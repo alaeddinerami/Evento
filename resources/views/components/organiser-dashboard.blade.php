@@ -53,18 +53,18 @@
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
 
             <!-- Header -->
-            <div class="fixed bg-blue-800 w-full flex items-center justify-between h-14 text-white px-4 z-10">
+            <div class="fixed bg-purple-800 w-full flex items-center justify-between h-14 text-white px-4 z-10">
                 <a href="">
 
                     <x-application-logo class="block h-9 w-auto fill-current text-white" />
                 </a>
-                <div class="flex justify-end items-center h-14 bg-blue-800 header-right">
+                <div class="flex justify-end items-center h-14 bg-purple-800 header-right">
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-semibold rounded-md text-gray-100 bg-blue-900 hover:text-white focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-semibold rounded-md text-gray-100 bg-purple-900 hover:text-white focus:outline-none transition ease-in-out duration-150">
                                     <div>{{ Auth::user()->name }}</div>
 
                                     <div class="ms-1">
@@ -102,7 +102,7 @@
 
             <!-- Sidebar -->
             <div
-                class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+                class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-purple-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
                 <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
                         <li class="px-5 hidden md:block">
@@ -111,8 +111,8 @@
                             </div>
                         </li>
                         <li>
-                            <a href="{{ route('user.statistics') }}"
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6">
+                            <a href="{{route('organisateur.index')}}"
+                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -121,7 +121,7 @@
                                         </path>
                                     </svg>
                                 </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+                                <span class="ml-2 text-sm tracking-wide truncate">Statistics</span>
                             </a>
                         </li>
                         <li class="px-5 hidden md:block ">
@@ -129,8 +129,8 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('category.index') }}"
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6">
+                            <a href=""
+                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         xmlns:serif="http://www.serif.com/" fill="#ffffff" class="w-5 h-5"
@@ -340,12 +340,12 @@
 
                                     </svg>
                                 </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">Category</span>
+                                <span class="ml-2 text-sm tracking-wide truncate">Event create</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.show')}}"
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6">
+                            <a href="{{route('event.index')}}"
+                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         fill="#ffffff" version="1.1" id="Capa_1" class="w-5 h-5"
@@ -392,13 +392,13 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">valider les événements </span>
+                                <span class="ml-2 text-sm tracking-wide truncate">Events </span>
 
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('user.index')}}"
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6">
+                            <a href=""
+                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" 
                                         class="w-5 h-5" viewBox="0 0 32 32" id="icon">

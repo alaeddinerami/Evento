@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
+use App\Traits\ImageUpload;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -10,9 +12,13 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
+     use ImageUpload;
+
     public function index()
     {
         //
+        $events = Event::all();
+        return view('organisateur.event.index', compact('events'));
     }
 
     /**
@@ -21,6 +27,8 @@ class EventController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        return view('organisateur.event.create', compact('categories'));
     }
 
     /**
@@ -29,6 +37,23 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request);
+        $validatedData = $request->validate([
+        'title' => 'required' ,
+        'lieu' => 'required',
+        'placesdisponible' => 'required',
+        'description' => 'required',
+        'date' => 'required',
+        'typeValidation' => 'required',
+        'categoryID' => 'required',
+        'organizerID' => 'required',
+       
+        ]);
+
+        $newEvent = Event::create($validatedData);
+        $this->storeImg($request->file('image'), $newEvent);
+        return redirect()->back();
+        
     }
 
     /**
@@ -37,6 +62,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         //
+        
     }
 
     /**
@@ -44,7 +70,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $categories = Category::all();
+        return view('organisateur.event.edit', compact('categories', "event"));
     }
 
     /**
@@ -52,7 +79,27 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        // dd($request);
+        $validatedData = $request->validate([
+            'title' => 'required' ,
+            'lieu' => 'required',
+            'placesdisponible' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'typeValidation' => 'required',
+            'categoryID' => 'required',
+            'organizerID' => 'required',
+            ]);
+            // dd($request->all());
+             $event->update($validatedData);
+
+
+            if ($request->hasFile('image')) {
+                $this->upadateImg($request->file('image'), $event);
+            }         
+    
+           
+               return redirect('organisateur/event');
     }
 
     /**
@@ -60,6 +107,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->Delete();
+     
+        return redirect()->back();
     }
 }

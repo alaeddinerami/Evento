@@ -18,14 +18,15 @@ return new class extends Migration
             $table->text('description');
             $table->date('date');
             $table->string('lieu');
-            $table->integer('places');
+            $table->integer('placesdisponible');
             $table->enum('typeValidation',['automatic','manual']);
-            $table->boolean('isValidByAdmin');
+            $table->enum('isValidByAdmin', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->unsignedBigInteger('organizerID');
             $table->foreign('organizerID')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('categoryID');
             $table->foreign('categoryID')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,6 +15,7 @@ class RoleValidate
      */
     public function handle(Request $request, Closure $next,  ...$roles): Response
     {
+        
         if (!$request->user() || !in_array($request->user()->role, $roles)) {
             abort(403, 'Unauthorized.');
         }
