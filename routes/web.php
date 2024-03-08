@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Models\Organisateur;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,11 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:client'])->group( function(){
     
     Route::get('/client/index', [ClientController::class, 'index'])->name('client.index');
-
+    Route::get('/client/index/search', [ClientController::class, 'search'])->name('client.search');
+    Route::post('/client/index/filter', [ClientController::class, 'filter'])->name('client.filter');
+    Route::get('/client/show/{event}', [EventController::class, 'show'])->name('client.show');
+    route::resource('/client/reservation',ReservationController::class);
+    
 });
 
 Route::middleware(['auth', 'role:organiser'])->group( function(){
@@ -53,6 +58,7 @@ Route::middleware(['auth', 'role:organiser'])->group( function(){
     Route::get('/organisateur/index', [OrganisateurController::class, 'index'])->name('organisateur.index');
     
     Route::resource('/organisateur/event',EventController::class);
+    
 });
 
 

@@ -52,7 +52,10 @@ class EventController extends Controller
 
         $newEvent = Event::create($validatedData);
         $this->storeImg($request->file('image'), $newEvent);
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => 'Event created successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
         
     }
 
@@ -62,7 +65,8 @@ class EventController extends Controller
     public function show(Event $event)
     {
         //
-        
+        // dd($event);
+        return view('client.show',compact('event'));
     }
 
     /**
@@ -99,7 +103,10 @@ class EventController extends Controller
             }         
     
            
-               return redirect('organisateur/event');
+            //    return redirect()->back()->with([
+            //     'message' => 'Event updated successfully!',
+            //     'operationSuccessful' => $this->operationSuccessful = true,]);
+                return redirect('organisateur/event');
     }
 
     /**

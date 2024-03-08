@@ -29,6 +29,19 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request);
+        $validatedData = $request->validate([
+            'eventID' => 'required' ,
+            'clientID' => 'required' ,
+            
+        ]);
+        $newReservation = Reservation::create($validatedData);
+        // dd($newReservation);
+        
+        return redirect()->back()->with([
+            'message' => 'event is reserved successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
     }
 
     /**

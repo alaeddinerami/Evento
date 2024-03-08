@@ -36,4 +36,8 @@ class Event extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'eventID');
+    }
 }

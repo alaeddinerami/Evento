@@ -1,4 +1,20 @@
 <x-organiser-dashboard>
+    @push('vite')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+@endpush
+@if (session()->has('message'))
+    @push('scripts')
+        <script>
+            Swal.fire({
+                title: '{{ session('operationSuccessful') ? 'Success' : 'Error' }}!',
+                icon: '{{ session('operationSuccessful') ? 'success' : 'error' }}',
+                confirmButtonText: 'Ok',
+                html: '{{ session('message') }}'
+            })
+        </script>
+    @endpush
+@endif
     <form class="p-4 md:p-5" method="post" action="{{ route('event.update', $event) }} "
                     enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf

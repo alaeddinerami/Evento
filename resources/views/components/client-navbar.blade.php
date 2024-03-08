@@ -60,9 +60,9 @@
 
 
                 <div class="flex justify-evenly items-center h-14 bg-blue-800 header-right">
-                    <a href="">Events</a>
-                    <form action="" method="GET">
-                        <input type="text" name="query" placeholder="Search..."
+                    <a href="{{route('client.index')}}">Events</a>
+                    <form action="{{route('client.search')}}" method="GET">
+                        <input type="text" name="search" placeholder="Search..."
                             class="px-2 py-1 rounded-lg border-none bg-gray-200 focus:outline-none text-black">
                         <button type="submit" class="px-3 py-1 bg-blue-900 text-white rounded-lg ml-2">Search</button>
                     </form>

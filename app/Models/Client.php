@@ -17,4 +17,8 @@ class Client extends Model
     public function users(){
         return $this->belongsTo(User::class, 'userID');
     }
+    public function reservations()
+    {
+        return $this->hasOne(Reservation::class, 'clientID');
+    }
 }
