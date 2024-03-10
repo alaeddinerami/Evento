@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Home</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -39,7 +39,7 @@
                 <p class="text-stone-100  text-xl mb-10">
                     Stay informed about the latest events hosted by Hospital Consultancy. Whether it's workshops, seminars, or conferences, discover opportunities to enhance your knowledge and network with industry professionals.
                 </p>
-                <a href="{{ route('login') }}" class="mt-8 text-white uppercase py-4 text-base font-light px-10 border border-white hover:bg-white hover:bg-opacity-10">log in</a>
+                {{-- <a href="{{ route('login') }}" class="mt-8 text-white uppercase py-4 text-base font-light px-10 border border-white hover:bg-white hover:bg-opacity-10">log in</a> --}}
             </div>
           </div>
     </div>

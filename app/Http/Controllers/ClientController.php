@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Event;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -23,6 +25,13 @@ class ClientController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function myreservation(){
+        $cliendID = Auth::user()->clients->id;
+        // dd($cliendID);
+        $reservations = Reservation::where('clientID',$cliendID)->get();
+        // dd($reservations);
+        return view('client.reservation.myreservation',compact('reservations'));
+    }
     public function search(Request $request)
     {
         $categories = Category::all();
@@ -45,7 +54,9 @@ class ClientController extends Controller
     
     public function create()
     {
-        //
+        $categories = Category::all();
+        dd($categories);
+        return view('client.reservation.myreservation');
     }
     public function ban(Client $client)
     {
@@ -74,12 +85,10 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Client $client)
+    public function show(Client $client , Event $event)
     {
         //
-        
-        
-        
+        return view('client.ticket',compact('event'));
     }
 
     /**

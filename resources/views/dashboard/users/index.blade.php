@@ -86,7 +86,7 @@
         <div class="shadow-lg border-t-2 rounded-lg w-full p-2 mt-8">
             <h3>organisers</h3>
             {{-- table copy it from actors --}}
-            <table id="table" class="min-w-full divide-y divide-gray-200 stripe hover"
+            <table id="table2" class="min-w-full divide-y divide-gray-200 stripe hover"
                 style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
 
                 <thead>
@@ -107,32 +107,32 @@
                     </tr>
                 </thead>
 
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y  divide-gray-200">
                     @foreach ($organisateurs as $organisateur)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4 text-left whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
                                 {{ $organisateur->id }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4 text-left whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
                                 {{ $organisateur->users->name }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+                        <td class="px-6 py-4 text-left whitespace-no-wrap text-sm leading-5">
                             @if($organisateur->isBanned)
                             <p>banned</p>
                             @else
                             <p>permitted</p>
                             @endif
-                        <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
+                        <td class="px-8 py-4 whitespace-nowrap text-left text-sm font-medium">
                             @if(!$organisateur->isBanned)                            
                             <button data-modal-target="ban-organiser-modal" data-modal-toggle="ban-organiser-modal" class="text-white bg-green-800   font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onclick="openEditModal({{ $organisateur->id }})">
                                 Ban
                             </button>
                             @else
-                            <button  class="text-white bg-red-800   font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onclick="openEditModal({{ $organisateur->id }})">
+                            <button  class="text-white bg-red-800 text-left  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onclick="openEditModal({{ $organisateur->id }})">
                                 Unban
                             </button>
                             @endif                         
@@ -200,6 +200,21 @@
     <script>
         $(document).ready(function() {
             var table = $('#table').DataTable({
+                    responsive: true,
+                    pageLength: 5,
+                    lengthMenu: [
+                        [5],
+                        [5]
+                    ]
+                })
+                .columns.adjust()
+                .responsive.recalc();
+        });
+    </script>
+    
+    <script>
+        $(document).ready(function() {
+            var table = $('#table2').DataTable({
                     responsive: true,
                     pageLength: 5,
                     lengthMenu: [

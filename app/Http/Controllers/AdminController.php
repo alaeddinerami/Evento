@@ -19,24 +19,29 @@ class AdminController extends Controller
         //
         $clients = Client::all();
         $organisateurs = Organisateur::all();
-        return view('dashboard.users.index', compact('clients','organisateurs'));
+        return view('dashboard.users.index', compact('clients', 'organisateurs'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function statistics(){
+    public function statistics()
+    {
         $clientsTotal = Client::all()->count();
         $organisateursTotal = Organisateur::all()->count();
         $categoriesTotal = Category::all()->count();
         $eventsTotal = Event::all()->count();
-        return view('dashboard.dashboard', compact('clientsTotal','organisateursTotal','categoriesTotal','eventsTotal'));
+        return view('dashboard.dashboard', compact('clientsTotal', 'organisateursTotal', 'categoriesTotal', 'eventsTotal'));
     }
     public function create()
     {
         //
     }
-
+    public function visitEvent(Event $event)
+    {
+        
+        return view('dashboard.event.visitEvent',['event'=>$event]);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -52,7 +57,7 @@ class AdminController extends Controller
     {
         //
         $events = Event::all();
-        return view('dashboard.event.index',compact('events'));
+        return view('dashboard.event.index', compact('events'));
     }
 
     /**
@@ -81,18 +86,24 @@ class AdminController extends Controller
 
     public function validateEvent(Event $event)
     {
-        
+
         $event->isValidByAdmin = 'accepted';
         $event->update();
         // dd($event->isValidByAdmin);
-        return redirect()->back()->with('success', 'Event accepted!');
+        return redirect()->back()->with([
+            'message' => 'Event accepted successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
     }
     public function rejectEvent(Event $event)
     {
-        
+
         $event->isValidByAdmin = 'rejected';
         $event->update();
         // dd($event->isValidByAdmin);
-        return redirect()->back()->with('success', 'Event accepted!');
+        return redirect()->back()->with([
+            'message' => 'Event rejected successfully!',
+            'operationSuccessful' => $this->operationSuccessful = true,
+        ]);
     }
 }

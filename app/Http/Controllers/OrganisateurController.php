@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Organisateur;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class OrganisateurController extends Controller
@@ -14,8 +15,9 @@ class OrganisateurController extends Controller
     public function index()
     {
         //
+        // $reservationTotals = Reservation::where();
        
-        return view("organisateur.index");
+        // return view("organisateur.index");
     }
 
     /**

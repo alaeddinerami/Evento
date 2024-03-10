@@ -1,4 +1,6 @@
-<x-organiser-dashboard>
+<x-client-navbar>
+    
+        
     <div class="w-11/12 mx-auto flex flex-col items-start justify-start mt-8 text-gray-900">
         <div class="flex items-center flex-wrap">
             <ul class="flex items-center">
@@ -14,22 +16,13 @@
                     <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
                 </li>
                 <li class="inline-flex items-center">
-                    <a href="" class="hover:text-blue-500">Orgeniser</a>
+                    <a href="" class="hover:text-blue-500">{{ Auth::user()->name }}</a>
                     <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
                 </li>
                 <li class="inline-flex items-center">
-                    <a href="" class="hover:text-blue-500">Events</a>
+                    <a href="" class="hover:text-blue-500">My reservatios</a>
                 </li>
             </ul>
-        </div>
-
-        <div class="w-full flex justify-between items-center px-2 mt-4">
-            <p class="text-none text-xl font-semibold indent-4">Event</p>
-            <a href="{{ route('event.create') }}"
-                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                type="button">
-                Create Event
-            </a>
         </div>
         <div class="shadow-lg border-t-2 rounded-lg w-full p-2 mt-8">
             {{-- table copy it from actors --}}
@@ -45,10 +38,14 @@
                             Events Titel</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            validated by admin</th>
+                            Event datee</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Validation</th>
+                            organiser Name</th>
+                        <th data-priority="1"
+                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Acceptation</th>
+
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action</th>
@@ -57,46 +54,54 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($events as $event)
+                    @foreach ($reservations as $reservation)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->id }}
+                                    {{ $reservation->id }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->title }}
+                                    {{ $reservation->events->title }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->typeValidation }}
+                                    {{ $reservation->events->date }}
                                 </div>
                             </td>
+                            
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->isValidByAdmin }}
+                                    {{ $reservation->events->organizers->users->name }}
                                 </div>
                             </td>
+                            @if($reservation->status == 0)
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">
+                                    pendding
+                                </div>
+                            </td>
+                            @else
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Accepted
+                                </div>
+                            </td>
+                            @endif
+
                             <td class="px-8 py-4  whitespace-nowrap text-center text-sm font-medium">
-                               
-                                <a href="{{route('organisateur.showstatistic', $event )}}"
-                                    class="inline-block">
-                                    
-                                    <button type="submit" class="text-red-500 hover:text-red-700 mr-4">Statistics</button>
-                                </a>
-                               
-                                <a href="{{ route('event.edit', $event->id) }}"
-                                    class="text-teal-500 hover:text-teal-700">
-                                    Edit
-                                </a>
-                                <form action="{{ route('event.destroy', $event->id) }}" method="POST"
-                                    class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-700 ml-4">Delete</button>
-                                </form>
+                                @if ($reservation->status == 1)
+                                    <a href="{{ route('reservation.show', $reservation) }}"
+                                         class="inline-block">
+                                       
+                                        <button type="submit" class="text-green-600 hover:text-green-500 mr-4">
+                                           get tecket</button>
+                                    </a>
+                                @endif
+                                
+
                             </td>
 
                         </tr>
@@ -119,4 +124,4 @@
                 .responsive.recalc();
         });
     </script>
-</x-organiser-dashboard>
+</x-client-navbar>

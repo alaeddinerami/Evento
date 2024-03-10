@@ -1,4 +1,40 @@
 <x-organiser-dashboard>
+    <div class="">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+            <div
+                class="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl"></p>
+                    <p>Clients</p>
+                </div>
+            </div>
+            <div
+                class="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl"></p>
+                    <p>Organiser</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="w-11/12 mx-auto flex flex-col items-start justify-start mt-8 text-gray-900">
         <div class="flex items-center flex-wrap">
             <ul class="flex items-center">
@@ -45,10 +81,8 @@
                             Events Titel</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            validated by admin</th>
-                        <th data-priority="1"
-                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Validation</th>
+                            Client Name</th>
+
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action</th>
@@ -57,46 +91,41 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($events as $event)
+                    @foreach ($reservations as $reservation)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->id }}
+                                    {{ $reservation->id }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->title }}
+                                    {{ $reservation->events->title }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->typeValidation }}
+                                    {{ $reservation->clients->users->name }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">
-                                    {{ $event->isValidByAdmin }}
-                                </div>
-                            </td>
+
                             <td class="px-8 py-4  whitespace-nowrap text-center text-sm font-medium">
-                               
-                                <a href="{{route('organisateur.showstatistic', $event )}}"
-                                    class="inline-block">
-                                    
-                                    <button type="submit" class="text-red-500 hover:text-red-700 mr-4">Statistics</button>
-                                </a>
-                               
-                                <a href="{{ route('event.edit', $event->id) }}"
-                                    class="text-teal-500 hover:text-teal-700">
-                                    Edit
-                                </a>
-                                <form action="{{ route('event.destroy', $event->id) }}" method="POST"
+                                @if ($reservation->events->typeValidation == 'manual')
+                                    <form action="{{ route('organisateur.reseravationManualAccepted', $reservation) }}"
+                                        method="POST" class="inline-block">
+                                        @csrf
+                                        @method('patch')
+                                        <button type="submit" class="text-green-600 hover:text-green-500 mr-4">validate
+                                            resevation</button>
+                                    </form>
+                                @endif
+                                <form action="{{ route('event.destroy', $reservation) }}" method="POST"
                                     class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 ml-4">Delete</button>
                                 </form>
+
                             </td>
 
                         </tr>

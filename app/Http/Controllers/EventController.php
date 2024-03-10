@@ -4,20 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Reservation;
 use App\Traits\ImageUpload;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     use ImageUpload;
+    use ImageUpload;
 
     public function index()
     {
         //
-        $events = Event::all();
+        // $events = Event::all();
+        $organizerId = Auth::id();
+
+        $events = Event::whereHas('organizers', function ($query) use ($organizerId) {
+            $query->where('userID', $organizerId);
+        })->get();
         return view('organisateur.event.index', compact('events'));
     }
 
@@ -39,16 +47,30 @@ class EventController extends Controller
         //
         // dd($request);
         $validatedData = $request->validate([
-        'title' => 'required' ,
-        'lieu' => 'required',
-        'placesdisponible' => 'required',
-        'description' => 'required',
-        'date' => 'required',
-        'typeValidation' => 'required',
-        'categoryID' => 'required',
-        'organizerID' => 'required',
-       
+            'title' => 'required',
+            'lieu' => 'required',
+            'placesdisponible' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'typeValidation' => 'required',
+            'categoryID' => 'required',
+            'organizerID' => 'required',
+
         ]);
+
+        $date_requested = new DateTime($request->date);
+        $date_today = new DateTime();
+        
+        if ($date_requested > $date_today) {
+            $new_date = $date_requested;
+        } else {
+            return redirect()->back()->with([
+                    'message' => 'Error!',
+                    'operationSuccessful' => $this->operationSuccessful = true,]);
+
+
+
+        }
 
         $newEvent = Event::create($validatedData);
         $this->storeImg($request->file('image'), $newEvent);
@@ -56,7 +78,7 @@ class EventController extends Controller
             'message' => 'Event created successfully!',
             'operationSuccessful' => $this->operationSuccessful = true,
         ]);
-        
+
     }
 
     /**
@@ -66,7 +88,16 @@ class EventController extends Controller
     {
         //
         // dd($event);
-        return view('client.show',compact('event'));
+        return view('client.show', compact('event'));
+    }
+
+    public function showStatistic(Event $event)
+    {
+        //
+        // dd($event);
+        $reservationTotals=Reservation::where('eventID',$event->id)->count();
+        // dd($reservationTotals);
+        return view('organisateur.index',compact('reservationTotals','event'));
     }
 
     /**
@@ -85,7 +116,7 @@ class EventController extends Controller
     {
         // dd($request);
         $validatedData = $request->validate([
-            'title' => 'required' ,
+            'title' => 'required',
             'lieu' => 'required',
             'placesdisponible' => 'required',
             'description' => 'required',
@@ -93,20 +124,22 @@ class EventController extends Controller
             'typeValidation' => 'required',
             'categoryID' => 'required',
             'organizerID' => 'required',
-            ]);
-            // dd($request->all());
-             $event->update($validatedData);
+        ]);
+
+       
+        // dd($request->all());
+        $event->update($validatedData);
 
 
-            if ($request->hasFile('image')) {
-                $this->upadateImg($request->file('image'), $event);
-            }         
-    
-           
-            //    return redirect()->back()->with([
-            //     'message' => 'Event updated successfully!',
-            //     'operationSuccessful' => $this->operationSuccessful = true,]);
-                return redirect('organisateur/event');
+        if ($request->hasFile('image')) {
+            $this->upadateImg($request->file('image'), $event);
+        }
+
+
+        //    return redirect()->back()->with([
+        //     'message' => 'Event updated successfully!',
+        //     'operationSuccessful' => $this->operationSuccessful = true,]);
+        return redirect('organisateur/event');
     }
 
     /**
@@ -115,7 +148,9 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->Delete();
-     
+
         return redirect()->back();
     }
+
+
 }

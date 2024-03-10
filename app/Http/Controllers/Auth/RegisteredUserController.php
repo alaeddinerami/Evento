@@ -58,6 +58,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return $request->role == 'client' ? redirect('/client/index') : redirect('/organisateur/index');
+        return $request->role == 'client' ? redirect('/client') : redirect('/organisateur/event');
     }
 }

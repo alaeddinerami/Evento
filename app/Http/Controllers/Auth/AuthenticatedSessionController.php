@@ -35,14 +35,14 @@ class AuthenticatedSessionController extends Controller
             return redirect('/dashboard');
         } elseif ($user->role == 'organiser') {
             if (!$user->organisateurs->isBanned ) {
-                return redirect('/organisateur/index');
+                return redirect('/organisateur/event');
             } else {
                 Auth::logout();
                 abort('401', 'Your account is banned');
             }
         } else {
             if (!$user->clients->isBanned) {
-                return redirect('/client/index');
+                return redirect('/client');
             } else {
                 Auth::logout();
                 abort('401', 'Your account is banned');

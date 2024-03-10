@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dashboard</title>
+    <title>Organiser</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -101,8 +101,7 @@
             <!-- ./Header -->
 
             <!-- Sidebar -->
-            <div
-                class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-purple-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+            <div class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-purple-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
                 <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
                     <ul class="flex flex-col py-4 space-y-1">
                         <li class="px-5 hidden md:block">
@@ -110,26 +109,13 @@
                                 <div class="text-sm font-light tracking-wide text-white uppercase"></div>
                             </div>
                         </li>
-                        <li>
-                            <a href="{{route('organisateur.index')}}"
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
-                                <span class="inline-flex justify-center items-center ml-4">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">Statistics</span>
-                            </a>
-                        </li>
+                       
                         <li class="px-5 hidden md:block ">
                             <hr class="border-[1.2px] rounded-full">
                         </li>
 
                         <li>
-                            <a href=""
+                            <a href="{{route('organisateur.displayIndex')}}"
                                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -340,7 +326,7 @@
 
                                     </svg>
                                 </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">Event create</span>
+                                <span class="ml-2 text-sm tracking-wide truncate">Reseravation List</span>
                             </a>
                         </li>
                         <li>
@@ -396,50 +382,7 @@
 
                             </a>
                         </li>
-                        <li>
-                            <a href=""
-                                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-purple-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
-                                <span class="inline-flex justify-center items-center ml-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" 
-                                        class="w-5 h-5" viewBox="0 0 32 32" id="icon">
-                                        <defs>
-                                            <style>
-                                                .cls-1 {
-                                                    fill: none;
-                                                }
-                                            </style>
-                                        </defs>
-                                        <title>events</title>
-                                        <path
-                                            d="M26,14H24v2h2a3.0033,3.0033,0,0,1,3,3v4h2V19A5.0058,5.0058,0,0,0,26,14Z"
-                                            transform="translate(0 0)" />
-                                        <path d="M24,4a3,3,0,1,1-3,3,3,3,0,0,1,3-3m0-2a5,5,0,1,0,5,5A5,5,0,0,0,24,2Z"
-                                            transform="translate(0 0)" />
-                                        <path
-                                            d="M23,30H21V28a3.0033,3.0033,0,0,0-3-3H14a3.0033,3.0033,0,0,0-3,3v2H9V28a5.0059,5.0059,0,0,1,5-5h4a5.0059,5.0059,0,0,1,5,5Z"
-                                            transform="translate(0 0)" />
-                                        <path d="M16,13a3,3,0,1,1-3,3,3,3,0,0,1,3-3m0-2a5,5,0,1,0,5,5A5,5,0,0,0,16,11Z"
-                                            transform="translate(0 0)" />
-                                        <path d="M8,14H6a5.0059,5.0059,0,0,0-5,5v4H3V19a3.0033,3.0033,0,0,1,3-3H8Z"
-                                            transform="translate(0 0)" />
-                                        <path d="M8,4A3,3,0,1,1,5,7,3,3,0,0,1,8,4M8,2a5,5,0,1,0,5,5A5,5,0,0,0,8,2Z"
-                                            transform="translate(0 0)" />
-                                        <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;"
-                                            class="cls-1" width="32" height="32" />
-                                    </svg>
-
-                                    <g id="User / Users_Group">
-                                        <path id="Vector"
-                                            d="M17 20C17 18.3431 14.7614 17 12 17C9.23858 17 7 18.3431 7 20M21 17.0004C21 15.7702 19.7659 14.7129 18 14.25M3 17.0004C3 15.7702 4.2341 14.7129 6 14.25M18 10.2361C18.6137 9.68679 19 8.8885 19 8C19 6.34315 17.6569 5 16 5C15.2316 5 14.5308 5.28885 14 5.76389M6 10.2361C5.38625 9.68679 5 8.8885 5 8C5 6.34315 6.34315 5 8 5C8.76835 5 9.46924 5.28885 10 5.76389M12 14C10.3431 14 9 12.6569 9 11C9 9.34315 10.3431 8 12 8C13.6569 8 15 9.34315 15 11C15 12.6569 13.6569 14 12 14Z"
-                                            stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </g>
-                                    </svg>
-                                </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">gérer les utilisateurs </span>
-
-                            </a>
-                        </li>
+                        
                     </ul>
                     <p class="mb-14 px-5 py-3 hidden md:block text-center text-xs">Copyright @2024</p>
                 </div>

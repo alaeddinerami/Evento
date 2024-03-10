@@ -36,6 +36,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'statistics'])->name('user.statistics');
     Route::put('/dashboarde/validateEvent/{event}', [AdminController::class, 'validateEvent'])->name('admin.validateEvent');
     Route::put('/dashboarde/rejectEvent/{event}', [AdminController::class, 'rejectEvent'])->name('admin.rejectEvent');
+    Route::get('/dashboarde/visitEvent/{event}', [AdminController::class, 'visitEvent'])->name('admin.visitEvent');
+    
 });
 
 Route::get('/', function () {
@@ -45,20 +47,23 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:client'])->group( function(){
     
-    Route::get('/client/index', [ClientController::class, 'index'])->name('client.index');
-    Route::get('/client/index/search', [ClientController::class, 'search'])->name('client.search');
-    Route::post('/client/index/filter', [ClientController::class, 'filter'])->name('client.filter');
-    Route::get('/client/show/{event}', [EventController::class, 'show'])->name('client.show');
+    Route::get('/client', [ClientController::class, 'index'])->name('client.index');
+    Route::get('/client/search', [ClientController::class, 'search'])->name('client.search');
+    Route::post('/client/filter', [ClientController::class, 'filter'])->name('client.filter');
+    Route::get('/client/show/{event}', [EventController::class, 'show'])->name('clientevent.show');
     route::resource('/client/reservation',ReservationController::class);
-    
+    // route::resource('/client',ClientController::class);
+    Route::get('/client/myreservation', [ClientController::class, 'myreservation'])->name('client.myreservation');
 });
 
 Route::middleware(['auth', 'role:organiser'])->group( function(){
 
-    Route::get('/organisateur/index', [OrganisateurController::class, 'index'])->name('organisateur.index');
-    
+    // Route::get('/organisateur/index', [OrganisateurController::class, 'index'])->name('organisateur.index');
     Route::resource('/organisateur/event',EventController::class);
-    
+    route::patch('/organisateur/reservation/{reservation}',[ReservationController::class,'reseravationManualAccepted'])->name('organisateur.reseravationManualAccepted');
+    route::get('/organisateur/reservationDisplay',[ReservationController::class,'displayIndex'])->name('organisateur.displayIndex');
+    route::get('/organisateur/showStatistic/{event}',[EventController::class,'showstatistic'])->name('organisateur.showstatistic');
+
 });
 
 

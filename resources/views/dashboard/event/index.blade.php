@@ -1,4 +1,20 @@
 <x-dashboard>
+    @push('vite')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    @endpush
+    @if (session()->has('message'))
+        @push('scripts')
+            <script>
+                Swal.fire({
+                    title: '{{ session('operationSuccessful') ? 'Success' : 'Error' }}!',
+                    icon: '{{ session('operationSuccessful') ? 'success' : 'error' }}',
+                    confirmButtonText: 'Ok',
+                    html: '{{ session('message') }}'
+                })
+            </script>
+        @endpush
+    @endif
     <div class="w-11/12 mx-auto flex flex-col items-start justify-start mt-8 text-gray-900">
         <div class="flex items-center flex-wrap">
             <ul class="flex items-center">
@@ -38,6 +54,9 @@
                             Events Titel</th>
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Organiser</th>
+                        <th data-priority="1"
+                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             validated by admin</th> 
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -61,26 +80,31 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
+                                {{ $event->organizers->users->name }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap ">
+                            <div class="text-sm font-medium text-gray-900">
                                 {{ $event->isValidByAdmin}}
                             </div>
                         </td>
                        
-                        <td class="p-1 flex flex-wrap whitespace-nowrap text-center text-sm font-medium">
+                        <td class="p-1 flex flex-col flex-wrap whitespace-nowrap  text-sm font-medium">
 
-                            <a href="{{route('event.edit',$event->id)}}" class="text-blue-500 px-4 hover:text-blue-700">
+                            <a href="{{ route('admin.visitEvent', $event) }}" class="text-blue-500 text-left hover:text-blue-700">
                                 Visit
                             </a>
-                            <form method="POST" action="{{ route('admin.validateEvent',$event) }}">
+                            <form method="POST" action="{{ route('admin.validateEvent',$event) }}" class="inline-block text-left">
                                 @csrf
                                 @method('put')     
-                                <button type="submit" class="text-teal-500 hover:text-teal-700">
+                                <button type="submit" class="text-teal-500  hover:text-teal-700">
                                     Accept
                                 </button>
                             </form>
-                            <form action="{{route('admin.rejectEvent',$event->id)}}" method="POST" class="inline-block">
+                            <form action="{{route('admin.rejectEvent',$event->id)}}" method="POST" class="inline-block text-left">
                                 @csrf
                                 @method('put')
-                                <button type="submit" class="text-red-500 hover:text-red-700 ml-4">Reject</button>
+                                <button type="submit" class="text-red-500  hover:text-red-700 ">Reject</button>
                             </form>
                         </td>
 

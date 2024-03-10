@@ -142,12 +142,12 @@
                 Add Category
             </button>
         </div>
-        <div class="shadow-lg border-t-2 rounded-lg w-full p-2 mt-8">
+        <div class="shadow-lg border-t-2  rounded-lg w-full p-2 mt-8">
             {{-- table copy it from actors --}}
             <table id="table" class="min-w-full divide-y divide-gray-200 stripe hover"
                 style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
-                    <tr>
+                    <tr >
                         <th data-priority="1"
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             ID</th>
@@ -155,26 +155,25 @@
                             class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Categories</th>
                         <th data-priority="1"
-                            class="px-6 py-3 bg-gray-50 text-left  text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Action</th>
-
+                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Action</th>
                     </tr>
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($categories as $category)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4 text-left whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
                                 {{ $category->id }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">
+                        <td class="px-6 py-4 text-left whitespace-nowrap">
+                            <div class="text-sm text-left font-medium text-gray-900">
                                 {{ $category->name }}
                             </div>
                         </td>
-                        <td class="px-8 py-4 whitespace-nowrap text-center text-sm font-medium">
+                        <td class="px-8 py-4 text-left whitespace-nowrap text-sm font-medium">
 
                             <button  class="text-teal-500 hover:text-teal-700" onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')">
                                 Edit

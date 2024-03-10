@@ -20,6 +20,7 @@
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @stack('vite')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -53,15 +54,47 @@
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-slate-100 text-black">
 
             <!-- Header -->
-            <div class="fixed bg-blue-800 w-full flex items-center justify-between h-14 text-white px-4 z-10">
+            <div class="fixed bg-blue-800 w-full flex items-center justify-between h-14 text-white sm:px-4 z-10">
                 <a href="">
                     <x-application-logo class="block h-9 w-auto fill-current text-white" />
                 </a>
 
 
-                <div class="flex justify-evenly items-center h-14 bg-blue-800 header-right">
-                    <a href="{{route('client.index')}}">Events</a>
-                    <form action="{{route('client.search')}}" method="GET">
+                <!-- Mobile Menu Button -->
+                <button class="sm:hidden focus:outline-none" id="mobileMenuButton">
+                    <svg class="h-6 w-6 fill-current text-white" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M4 6a2 2 0 012-2h12a2 2 0 110 4H6a2 2 0 01-2-2zm0 7a2 2 0 012-2h12a2 2 0 110 4H6a2 2 0 01-2-2zm0 7a2 2 0 012-2h12a2 2 0 110 4H6a2 2 0 01-2-2z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <!-- Mobile Menu -->
+                <div class="absolute  top-14 sm:hidden bg-blue-400 w-full text-white px-4 pt-2 pb-4"
+                    style="display: none;" id="mobileMenu">
+                    <a href="{{ route('client.index') }}" class="block py-2 text-center hover:text-gray-200">Events</a>
+                    <a href="{{ route('client.myreservation') }}" class="block text-center py-2 hover:text-gray-200">My
+                        reservation</a>
+                    <form class="w-full flex justify-center" action="{{ route('client.search') }}" method="GET">
+                        <input type="text" name="search" placeholder="Search..."
+                            class="px-2 py-1 rounded-lg border-none bg-gray-200 focus:outline-none text-black"
+                            id="mobileSearchInput">
+                        <button type="submit"
+                            class="px-3 py-1 bg-blue-900 text-center text-white rounded-lg ml-2">Search</button>
+                    </form>
+                    <form class="mt-2 flex justify-center" method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <button type="submit"
+                            class="px-3 py-1  text-center text-white rounded-lg ml-2 hover:text-blue-900 hover:underline">Log out</button>
+
+                    </form>
+                </div>
+
+                <div class="hidden sm:flex justify-evenly items-center h-14 bg-blue-800 header-right">
+                    <a href="{{ route('client.index') }}">Events</a>
+                    <a href="{{ route('client.myreservation') }}">My reservation</a>
+                    <form action="{{ route('client.search') }}" method="GET">
                         <input type="text" name="search" placeholder="Search..."
                             class="px-2 py-1 rounded-lg border-none bg-gray-200 focus:outline-none text-black">
                         <button type="submit" class="px-3 py-1 bg-blue-900 text-white rounded-lg ml-2">Search</button>
@@ -109,6 +142,32 @@
             </main>
         </div>
     </div>
+    <footer class="bg-blue-900 py-8 px-10 font-[sans-serif]">
+        <div class="">
+            <div class="lg:flex lg:items-center flex justify-center">
+                <a href="">
+                    <x-application-logo class="block h-9 w-auto fill-current text-white" />
+                </a>
+            </div>
+
+        </div>
+        <p class='text-gray-300 text-sm mt-8 text-center'>© 2023<a href='' target='_blank'
+                class="hover:underline mx-1 text-center">ReadymadeUI</a>All Rights Reserved.
+        </p>
+    </footer>
+    @stack('scripts')
+    <script>
+        // Toggle mobile menu
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuButton.addEventListener('click', function() {
+            if (mobileMenu.style.display === 'none') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>
